@@ -1,8 +1,9 @@
+export const revalidate = 60; // 60 segundos
+
 import { getPaginatedProductsWithImages } from "@/actions";
 import { Pagination, ProductGrid, Title } from "@/components";
-//import { initialData } from "@/seed/seed";
 import { Gender } from "@prisma/client";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 
 interface Props {
   params: {
@@ -13,9 +14,7 @@ interface Props {
   }
 }
 
-//const seedProducts = initialData.products;
-
-export default async function ({ params, searchParams }: Props) {
+export default async function GenderPage({ params, searchParams }: Props) {
 
   const {gender} = params;
 
