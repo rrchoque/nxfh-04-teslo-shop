@@ -10,6 +10,7 @@ interface State {
 
 export const useCartStore = create<State>()(
 
+  persist(
     (set, get) => ({
       cart: [],
 
@@ -39,5 +40,9 @@ export const useCartStore = create<State>()(
 
         set({ cart: updatedCartProducts });
       }
-    })
+    }),
+    {
+      name: "shopping-cart"
+    }
+  )
 );
