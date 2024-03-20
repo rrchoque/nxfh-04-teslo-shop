@@ -57,8 +57,8 @@ export const TopMenu = () => {
         </Link>
 
         <Link href={
-          ( totalItemsInCart === 0)
-            ? '/empty'
+          ( loaded && totalItemsInCart === 0)
+            ? "/empty"
             : "/cart"
         } className="mx-2">
           <div className="relative">
