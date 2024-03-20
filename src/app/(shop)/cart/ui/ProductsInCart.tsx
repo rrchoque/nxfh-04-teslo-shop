@@ -13,7 +13,7 @@ export const ProductsInCart = () => {
   const [loaded, setLoaded] = useState(false);
   const productsInCart = useCartStore( state => state.cart );
   const updateProductQuantity = useCartStore( state => state.updateProductQuantity );
-
+  const removeProduct = useCartStore( state => state.removeProduct );
 
   useEffect(() => {
     setLoaded(true) ;
@@ -53,7 +53,8 @@ export const ProductsInCart = () => {
             />
 
             <button 
-              className="underline mt-3">Remover</button>
+              onClick={ () => removeProduct(product) }
+              className="underline mt-3">Eliminar</button>
           </div>
         </div>
       ))}
