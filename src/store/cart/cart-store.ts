@@ -4,6 +4,12 @@ import { persist } from "zustand/middleware";
 
 interface State {
   cart: CartProduct[];
+  getSummaryInformation: () => {
+    subTotal: number;
+    tax: number;
+    total: number;
+    itemsInCart: number;
+  };
 
   getTotalItems: () => number;
   addProductTocart: (product: CartProduct) => void;
@@ -61,7 +67,7 @@ export const useCartStore = create<State>()(
 
         set({ cart: updatedCartProducts });
       },
-      
+
       removeProduct: (product: CartProduct) => {
         const { cart } = get();
         const updatedCartProducts = cart.filter(
@@ -69,6 +75,28 @@ export const useCartStore = create<State>()(
         );
 
         set({ cart: updatedCartProducts });
+      },
+
+      getSummaryInformation: () => {
+        const { cart } = get();
+
+        const subTotal = cart.reduce(
+          (subTotal, product) => product.quantity * product.price + subTotal,
+          0
+        );
+        const tax = subTotal * 0.15;
+        const total = subTotal + tax;
+        const itemsInCart = cart.reduce(
+          (total, item) => total + item.quantity,
+          0
+        );
+
+        return {
+          subTotal,
+          tax,
+          total,
+          itemsInCart,
+        };
       },
     }),
     {
