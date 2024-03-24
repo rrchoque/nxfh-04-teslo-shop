@@ -7,6 +7,7 @@ import { authenticate } from '@/actions/auth/login';
 
 export const LoginForm = () => {
   const [state, dispatch] = useFormState(authenticate, undefined);
+
   console.log({state})
 
   return (
@@ -15,13 +16,17 @@ export const LoginForm = () => {
     <label htmlFor="email">Correo electrónico</label>
     <input
       className="px-5 py-2 border bg-gray-200 rounded mb-5"
-      type="email" />
+      type="email" 
+      name='email'
+    />
 
 
     <label htmlFor="email">Contraseña</label>
     <input
       className="px-5 py-2 border bg-gray-200 rounded mb-5"
-      type="password" />
+      type="password" 
+      name='password'
+    />
 
     <button
       type='submit'
