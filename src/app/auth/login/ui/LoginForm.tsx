@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from 'next/link';
 import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate } from '@/actions/auth/login';
@@ -9,6 +9,15 @@ import clsx from 'clsx';
 
 export const LoginForm = () => {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+
+  useEffect(() => {
+    if ( errorMessage === 'Success' ) {
+      // redireccionar
+      // router.replace('/');
+      window.location.replace('/');
+    }
+
+  },[errorMessage]);
 
   return (
   <form action={dispatch} className="flex flex-col">
