@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { registerUser } from '@/actions';
+import { login, registerUser } from '@/actions';
 import { useState } from 'react';
 
 
@@ -30,6 +30,9 @@ export const RegisterForm = () => {
       setErrorMessage( resp.message );
       return;
     }
+
+    await login( email.toLowerCase(), password );
+    window.location.replace('/');
   }
 
 
