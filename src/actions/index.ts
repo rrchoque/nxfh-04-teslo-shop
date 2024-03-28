@@ -9,3 +9,4 @@ export { getCountries } from './country/get-countries'
 
 
 export * from './address/set-user-address'
+export * from './address/delete-user-address'
