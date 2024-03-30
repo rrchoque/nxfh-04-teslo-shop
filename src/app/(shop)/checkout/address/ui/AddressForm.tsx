@@ -2,7 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import clsx from 'clsx';
-import { Address, Country } from '@/interfaces';
+import { Address, Country, UserAddress } from '@/interfaces';
 import { useAddressStore } from '@/store';
 import { useEffect } from 'react';
 import { deleteUserAddress, setUserAddress } from '@/actions';
@@ -23,18 +23,25 @@ type FormInputs = {
 
 interface Props {
   countries: Country[];
-  userStoredAddress?: Partial<Address>;
+  userDbAddress?: Partial<UserAddress>;
 }
 
-export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
+export const AddressForm = ({ countries, userDbAddress = {} }: Props) => {
+
+  const {
+    id, // No se usará
+    userId, // No se usará
+    countryId: country,
+    ...restUserDbAddress
+  } = userDbAddress;
 
   const router = useRouter();
 
   const { handleSubmit, register, formState: { isValid }, reset } = useForm<FormInputs>({
     defaultValues: {
       // Todo: leer de la base de datos
-      ...(userStoredAddress as any),
-      rememberAddress: userStoredAddress.firstName ? true: false,
+      ...restUserDbAddress,
+      rememberAddress: restUserDbAddress.firstName ? true: false,
     }
   });
 
