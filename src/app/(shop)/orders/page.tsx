@@ -28,6 +28,9 @@ export default async function OrderPage() {
                 Nombre completo
               </th>
               <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                Artículos
+              </th>
+              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                 Estado
               </th>
               <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
@@ -47,6 +50,9 @@ export default async function OrderPage() {
                 </td>
                 <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                   {order.OrderAddress?.firstName} {order.OrderAddress?.lastName}
+                </td>
+                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  {order.itemsInOrder} artículos
                 </td>
                 <td className="flex items-center text-sm  text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                   {order.isPaid ? (
