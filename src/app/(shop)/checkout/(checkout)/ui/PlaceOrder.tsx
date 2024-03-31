@@ -5,7 +5,7 @@ import { useAddressStore, useCartStore } from "@/store";
 import { currencyFormat, sleep } from "@/utils";
 import clsx from "clsx";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export const PlaceOrder = () => {
@@ -21,6 +21,10 @@ export const PlaceOrder = () => {
   const { itemsInCart, subTotal, tax, total } = useCartStore((state) =>
     state.getSummaryInformation()
   );
+
+  if(itemsInCart == 0){
+    redirect('/')
+  }
 
   const cart = useCartStore( state => state.cart );
   const clearCart = useCartStore( state => state.clearCart );
