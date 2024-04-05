@@ -1,0 +1,66 @@
+"use server";
+
+import prisma from '@/lib/prisma';
+import { PayPalOrderStatusResponse } from '@/interfaces';
+import { revalidatePath } from 'next/cache';
+
+export const paypalCheckPayment = async (paypalTransactionId: string | undefined) => {
+
+  if (!paypalTransactionId) {
+    return {
+      ok: false,
+      message: "No se pudo obtener token de verificación",
+    };
+  }
+
+  const authToken = await getPayPalBearerToken();
+
+  if (!authToken) {
+    return {
+      ok: false,
+      message: "No se pudo obtener token de verificación",
+    };
+  }
+
+  
+};
+
+const getPayPalBearerToken = async (): Promise<string | null> => {
+  const PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
+  const PAYPAL_SECRET = process.env.PAYPAL_SECRET;
+  const oauth2Url = process.env.PAYPAL_OAUTH_URL ?? "";
+
+  const base64Token = Buffer.from(
+    `${PAYPAL_CLIENT_ID}:${PAYPAL_SECRET}`,
+    "utf-8"
+  ).toString("base64");
+
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+  myHeaders.append("Authorization", `Basic ${ base64Token }`);
+  
+  const urlencoded = new URLSearchParams();
+  urlencoded.append("grant_type", "client_credentials");
+  
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: urlencoded,
+  };
+  
+  // fetch("https://api-m.sandbox.paypal.com/v1/oauth2/token", requestOptions)
+  //   .then((response) => response.text())
+  //   .then((result) => console.log(result))
+  //   .catch((error) => console.error(error));
+
+    try {
+      const result = await fetch(oauth2Url, {
+        ...requestOptions,
+        cache: 'no-store'
+      }).then((r) => r.json());
+      return result.access_token;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+};
