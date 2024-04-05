@@ -22,7 +22,23 @@ export const paypalCheckPayment = async (paypalTransactionId: string | undefined
     };
   }
 
-  
+  const resp = await verifyPayPalPayment( paypalTransactionId, authToken );
+
+  if ( !resp ) {
+    return {
+      ok: false,
+      message: 'Error al verificar el pago'
+    }
+  }
+
+  const { status, purchase_units } = resp;
+
+  console.log( { status, purchase_units } )
+
+  // TODO: Realizar la actualización en nuestra base de datos
+
+  // TODO: Revalidar un path
+
 };
 
 const getPayPalBearerToken = async (): Promise<string | null> => {
@@ -63,4 +79,37 @@ const getPayPalBearerToken = async (): Promise<string | null> => {
       console.log(error);
       return null;
     }
+};
+
+const verifyPayPalPayment = async (
+  paypalTransactionId: string,
+  bearerToken: string
+): Promise<PayPalOrderStatusResponse|null>  => {
+
+  const paypalOrderUrl = `${ process.env.PAYPAL_ORDERS_URL }/${ paypalTransactionId }`;
+
+  const myHeaders = new Headers();
+  myHeaders.append(
+    "Authorization",
+    `Bearer ${ bearerToken }`
+  );
+
+  const requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+  };
+
+  try {
+    const resp = await fetch(paypalOrderUrl, {
+      ...requestOptions,
+      cache: 'no-store'
+    }).then( r => r.json() );
+    console.log({resp});
+    return resp;
+    
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+
 };
