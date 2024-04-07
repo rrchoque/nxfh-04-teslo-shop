@@ -33,11 +33,42 @@ export const paypalCheckPayment = async (paypalTransactionId: string | undefined
 
   const { status, purchase_units } = resp;
 
-  console.log( { status, purchase_units } )
+  console.log( { status, purchase_units } );
+
+  const { invoice_id: orderId } = purchase_units[0];
+
+  if ( status !== 'COMPLETED' ) {
+    return {
+      ok: false,
+      message: 'Aún no se ha pagado en PayPal'
+    }
+  }
 
   // TODO: Realizar la actualización en nuestra base de datos
+  try {
 
-  // TODO: Revalidar un path
+    await prisma.order.update({
+      where: { id: orderId },
+      data:  {
+        isPaid: true,
+        paidAt: new Date()
+      }
+    })
+
+    // TODO: Revalidar un path
+    revalidatePath(`/orders/${ orderId }`);
+
+    return {
+      ok: true
+    }
+
+  } catch (error) {
+    console.log(error);
+    return {
+      ok: false,
+      message: '500 - El pago no se pudo realizar'
+    }
+  }
 
 };
 
