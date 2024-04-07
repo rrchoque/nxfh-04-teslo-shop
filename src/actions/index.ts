@@ -21,3 +21,4 @@ export { setTransactionId } from './payments/set-transaction-id'
 export { paypalCheckPayment } from './payments/paypal-check-payment'
 
 export { getPaginatedUsers } from './user/get-paginater-users'
+export { changeUserRole } from './user/change-user-role'
