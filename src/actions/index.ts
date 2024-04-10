@@ -5,8 +5,9 @@ export { registerUser } from './auth/register';
 export { getProductBySlug } from './product/get-product-by-slug';
 export { getStockBySlug } from './product/get-stock-by-slug'
 export { getPaginatedProductsWithImages } from './product/product-pagination'
-export { getCountries } from './country/get-countries'
+export { createUpdateProduct } from './product/create-update-product'
 
+export { getCountries } from './country/get-countries'
 
 export { setUserAddress } from './address/set-user-address'
 export { deleteUserAddress } from './address/delete-user-address'
