@@ -29,8 +29,6 @@ export const ProductImage = ({
       : `/products/${ src }`
     : '/imgs/placeholder.jpg';
 
-  console.log({localSrc})
-
   return (
     <Image
       src={ localSrc }
