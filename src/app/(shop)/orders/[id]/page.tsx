@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { OrderStatus, PayPalButton, Title } from '@/components';
+import { OrderStatus, PayPalButton, ProductImage, Title } from '@/components';
 import { initialData } from '@/seed/seed';
 import { IoCardOutline } from 'react-icons/io5';
 import { redirect } from 'next/navigation';
@@ -50,8 +50,8 @@ export default async function OrdersIdPage( { params }: Props ) {
                 key={item.product.slug + "-" + item.size}
                 className="flex mb-5"
               >
-                <Image
-                  src={`/products/${item.product.ProductImage[0].url}`}
+                <ProductImage
+                  src={ item.product.ProductImage[0]?.url }
                   width={100}
                   height={100}
                   style={{

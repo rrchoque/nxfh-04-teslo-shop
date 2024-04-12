@@ -76,6 +76,9 @@ export const createUpdateProduct = async( formData: FormData ) => {
         })
       }
       
+
+      console.log(product)
+
       return {
         product
       }
