@@ -6,6 +6,7 @@ export { getProductBySlug } from './product/get-product-by-slug';
 export { getStockBySlug } from './product/get-stock-by-slug'
 export { getPaginatedProductsWithImages } from './product/product-pagination'
 export { createUpdateProduct } from './product/create-update-product'
+export { deleteProductImage } from './product/delete-product-image'
 
 export { getCountries } from './country/get-countries'
 
