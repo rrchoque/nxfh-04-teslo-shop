@@ -26,7 +26,7 @@ export default async function AddressPage() {
 
         <AddressForm 
           countries={countries} 
-          userStoredAddress={ userAddress }
+          userDbAddress={ userAddress }
         />
       </div>
     </div>

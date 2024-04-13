@@ -2,7 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import clsx from 'clsx';
-import { Address, Country, UserAddress } from '@/interfaces';
+import type { Address, Country, UserAddress } from '@/interfaces';
 import { useAddressStore } from '@/store';
 import { useEffect } from 'react';
 import { deleteUserAddress, setUserAddress } from '@/actions';
@@ -56,7 +56,7 @@ export const AddressForm = ({ countries, userDbAddress = {} }: Props) => {
     if ( address.firstName ) {
       reset(address)
     }
-  },[])
+  },[address, reset])
 
   const onSubmit = async( data: FormInputs ) => {
     
