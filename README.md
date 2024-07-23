@@ -26,8 +26,8 @@ npm run dev
 ```
 
 ## Stack usado
-* MongoDB
-* NestJS
+* PostgresSQL
+* NextJS
 
 ![Pantalla principal](images/captura-001.webp)
 
